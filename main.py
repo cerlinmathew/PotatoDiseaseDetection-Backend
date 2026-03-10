@@ -10,7 +10,6 @@ import uvicorn
 
 app = FastAPI()
 
-# Vite frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -23,7 +22,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# Load model once at start
+# Load model
 MODEL = tf.keras.models.load_model("model.keras")
 
 CLASS_NAMES = [
@@ -70,7 +69,7 @@ async def predict(file: UploadFile = File(...)):
         }
 
     except Exception as e:
-        print("ERROR:", str(e))  # Print to terminal for debugging
+        print("ERROR:", str(e))  
         return {"error": str(e)}
 
 
